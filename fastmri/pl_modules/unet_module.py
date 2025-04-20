@@ -78,6 +78,12 @@ class UnetModule(MriModule):
             drop_prob=self.drop_prob,
         )
 
+    def on_train_start(self) -> None:
+        # this will print the actual device (cpu, cuda:0 or mps:0)
+        dev = next(self.parameters()).device
+        print(f"🏷️  All model parameters are on: {dev}")
+
+
     def forward(self, image):
         return self.unet(image.unsqueeze(1)).squeeze(1)
 
