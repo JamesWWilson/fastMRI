@@ -21,6 +21,7 @@ from fastmri.data.mri_data import fetch_dir
 from fastmri.data.subsample import create_mask_for_mask_type
 from fastmri.data.transforms import UnetDataTransform
 from fastmri.pl_modules import FastMriDataModule, UnetModule
+from fastmri.models.unet_lora2 import UnetLoRA
 
 
 # hot fix learning rate step scheduler for lighting versions per 
@@ -195,22 +196,35 @@ def cli_main(args):
         weight_decay=args.weight_decay,
     )
 
+    # ── swap in our LoRA-augmented U-Net ──
+    lora_net = UnetLoRA(
+         args.in_chans,
+         args.out_chans,
+         args.chans,
+         args.num_pool_layers,
+         args.drop_prob,
+         r=args.lora_rank,
+         alpha=args.lora_alpha,
+         dropout=args.lora_dropout,
+    )
+    lora_net.freeze_base()
+    model.unet = lora_net
 
     # if you passed a .pt (state_dict), load it
     if args.resume_from_checkpoint and args.resume_from_checkpoint.endswith(".pt"):
         sd = torch.load(args.resume_from_checkpoint, map_location="cpu")
         model.unet.load_state_dict(sd)
 
-    # optionally freeze the encoder
-    # ── freeze encoder layers if requested ──
-    if args.freeze_encoder:
-        # freeze all the "down" conv blocks
-        for block in model.unet.down_sample_layers:  
-            for p in block.parameters():
-                p.requires_grad = False
-        # also freeze the center ConvBlock if you want
-        for p in model.unet.conv.parameters():
-            p.requires_grad = False
+    # # optionally freeze the encoder
+    # # ── freeze encoder layers if requested ──
+    # if args.freeze_encoder:
+    #     # freeze all the "down" conv blocks
+    #     for block in model.unet.down_sample_layers:  
+    #         for p in block.parameters():
+    #             p.requires_grad = False
+    #     # also freeze the center ConvBlock if you want
+    #     for p in model.unet.conv.parameters():
+    #         p.requires_grad = False
 
     # prepare checkpoint callback
     ckpt_dir = pathlib.Path(args.default_root_dir) / "checkpoints"
@@ -327,6 +341,12 @@ def build_args():
     parser.add_argument("--freeze_encoder", action="store_true",
                         help="Freeze the down_blocks of the U‑Net")
 
+    parser.add_argument("--lora_rank",    type=int,   default=4,
+                          help="LoRA rank (low-rank adapter dimension)")
+    parser.add_argument("--lora_alpha",   type=float, default=16,
+                          help="LoRA alpha (scaling factor)")
+    parser.add_argument("--lora_dropout", type=float, default=0.1,
+                          help="Dropout for the LoRA adapters")
 
     parser.add_argument(
         "--precision",

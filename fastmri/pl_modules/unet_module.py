@@ -11,6 +11,8 @@ import torch
 from torch.nn import functional as F
 
 from fastmri.models import Unet
+# from fastmri.models.unet_lora import Unet # added 
+from fastmri.models.unet_lora import Unet as LoraUnet # added 
 
 from .mri_module import MriModule
 
@@ -36,6 +38,7 @@ class UnetModule(MriModule):
         lr_step_size=40,
         lr_gamma=0.1,
         weight_decay=0.0,
+        use_lora=False, lora_cfg=None, # added 
         **kwargs,
     ):
         """
@@ -70,7 +73,10 @@ class UnetModule(MriModule):
         self.lr_gamma = lr_gamma
         self.weight_decay = weight_decay
 
-        self.unet = Unet(
+        # pick which Unet backend
+        UnetClass = LoraUnet if use_lora else Unet
+
+        self.unet = UnetClass(
             in_chans=self.in_chans,
             out_chans=self.out_chans,
             chans=self.chans,
