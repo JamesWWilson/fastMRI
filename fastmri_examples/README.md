@@ -24,8 +24,8 @@ further details.
 
 
 * **LoRA**
- * fastmri/models/unet_lora.py
- * fastmri_examples/unet/train_unet_with_lora.py
+  * fastmri/models/unet_lora.py
+  * fastmri_examples/unet/train_unet_with_lora.py
 
 
 
