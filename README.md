@@ -196,7 +196,7 @@ Please look at
 [this U-Net demo script](https://github.com/facebookresearch/fastMRI/tree/master/fastmri_examples/unet/train_unet_demo.py) for an
 example of how to train a model using the PyTorch Lightning framework.
 
-# For ViT training, please use the fastmri_training.ipynb jupyter notebook
+### For ViT training, please use the fastmri_training.ipynb jupyter notebook
 
 ## Submitting to the Leaderboard
 
