@@ -1,3 +1,34 @@
+# CS Research Team Experimentation 
+
+## Paper Reference 
+
+##  Instructions for Experiments 
+
+* **GradCam**
+
+
+
+* **LoRA**
+  * fastmri/models/unet_lora.py
+  * fastmri_examples/unet/train_unet_with_lora.py
+
+
+
+* **Uncertainty Evaluator**
+  * fastmri/models/uncertainty_evaluator.py
+  * fastmri_examples/unet/train_evaluator.py
+  * fastmri_examples/unet/run_inference_uncert.py
+
+
+
+
+
+
+
+
+
+
+
 # fastMRI
 
 [![LICENSE](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/facebookresearch/fastMRI/blob/master/LICENSE.md)
