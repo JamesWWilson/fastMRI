@@ -17,20 +17,5 @@ further details.
   * [On learning adaptive acquisition policies for undersampled multi-coil MRI reconstruction (T. Bakker et al., 2021)](adaptive_varnet/)
   * [Accelerated MRI reconstructions via variational network and feature domain learning (I. Giannakopoulos et al., 2024)](feature_varnet/)
 
-# Research Team Experimentation 
 
-* **GradCam**
-
-
-
-* **LoRA**
-  * fastmri/models/unet_lora.py
-  * fastmri_examples/unet/train_unet_with_lora.py
-
-
-
-* **Uncertainty Evaluator**
-  * fastmri/models/uncertainty_evaluator.py
-  * fastmri_examples/unet/train_evaluator.py
-  * fastmri_examples/unet/run_inference_uncert.py
 
