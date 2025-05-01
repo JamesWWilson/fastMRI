@@ -25,6 +25,10 @@
   * fastmri_examples/unet/run_inference_uncert.py
 
 * **ViT**
+  * ViT/mymodels/recon_net.py
+  * ViT/mymodels/vision_transformer.py
+  * ViT/fastmri_training.ipynb
+  * ViT/imagenet_pretrain.ipynb
 
 
 
@@ -44,6 +48,12 @@
 [Dataset](https://fastmri.med.nyu.edu/) |
 [GitHub](https://github.com/facebookresearch/fastMRI) |
 [Publications](#list-of-papers)
+
+# ViT
+
+Code and experiments inspired and initalized from this paper and repo:
+[Paper] https://openreview.net/forum?id=cNX6LASbv6 |
+[GitHub]  https://github.com/MLI-lab/transformers_for_imaging |
 
 Accelerating Magnetic Resonance Imaging (MRI) by acquiring fewer measurements
 has the potential to reduce medical costs, minimize stress to patients and make
@@ -185,6 +195,8 @@ explaining how to get started working with the data.
 Please look at
 [this U-Net demo script](https://github.com/facebookresearch/fastMRI/tree/master/fastmri_examples/unet/train_unet_demo.py) for an
 example of how to train a model using the PyTorch Lightning framework.
+
+# For ViT training, please use the fastmri_training.ipynb jupyter notebook
 
 ## Submitting to the Leaderboard
 
